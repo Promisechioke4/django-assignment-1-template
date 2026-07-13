@@ -41,19 +41,14 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-3. Install dependencies.
 
-```bash
-pip install -r requirements.txt
-```
-
-4. Apply migrations.
+3. Apply migrations.
 
 ```bash
 python manage.py migrate
 ```
 
-5. Start the development server.
+4. Start the development server.
 
 ```bash
 python manage.py runserver
