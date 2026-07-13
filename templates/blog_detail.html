@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="blog-detail">
+    <span class="post-date">{{ post.created_at|date:"M d, Y" }}</span>
+    <h1>{{ post.title }}</h1>
+
+    <div class="post-content">
+        {{ post.content|linebreaks }}
+    </div>
+
+    <div class="post-actions">
+        <a href="{% url 'blog_update' post.id %}" class="btn-outline">Edit</a>
+        <a href="{% url 'blog_delete' post.id %}" class="btn-danger">Delete</a>
+        <a href="{% url 'blog_list' %}" class="btn-text">← Back to Blog</a>
+    </div>
+</article>
+{% endblock %}
