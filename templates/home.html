@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero">
+    <img src="{% static 'profile.jpg' %}" alt="Profile photo" class="profile-photo">
+    <h1>Hi, I'm <span class="highlight">Dev Billions</span></h1>
+    <p class="hero-subtitle">Web Developer passionate about building clean, functional applications with Django and Python.</p>
+
+    <div class="hero-actions">
+        <a href="{% url 'blog_list' %}" class="btn-primary">Read My Blog</a>
+        <a href="{% url 'contact' %}" class="btn-outline">Get In Touch</a>
+    </div>
+</section>
+
+<section class="intro-cards">
+    <div class="intro-card fade-in-scroll">
+        <h3>💻 What I Do</h3>
+        <p>I build web applications using Django, focusing on clean code and thoughtful user experience.</p>
+    </div>
+    <div class="intro-card fade-in-scroll">
+        <h3>📚 Always Learning</h3>
+        <p>Currently deepening my knowledge of Django's ORM, REST APIs, and frontend design principles.</p>
+    </div>
+    <div class="intro-card fade-in-scroll">
+        <h3>🤝 Let's Connect</h3>
+        <p>Have a project in mind or just want to chat? Head over to my contact page — I'd love to hear from you.</p>
+    </div>
+</section>
+{% endblock %}
