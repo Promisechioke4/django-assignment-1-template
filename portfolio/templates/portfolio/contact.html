@@ -1,0 +1,61 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Contact Me | Portfolio{% endblock %}
+
+{% block content %}
+<section>
+    <!-- Section Header -->
+    <div class="section-header">
+        <h1 class="section-title">Get In Touch</h1>
+        <p class="section-subtitle">Have a project idea, question, or just want to say hello? Drop a message below!</p>
+    </div>
+
+    <!-- Contact Container -->
+    <div class="contact-container">
+        <!-- Contact Information Card -->
+        <div class="contact-info">
+            <div class="contact-card">
+                <div class="contact-method">
+                    <h3 class="contact-method-title">Email</h3>
+                    <p class="contact-method-detail">solomon@example.com</p>
+                </div>
+                <div class="contact-method" style="margin-top: 2rem;">
+                    <h3 class="contact-method-title">Location</h3>
+                    <p class="contact-method-detail">Lagos, Nigeria</p>
+                </div>
+                <div class="contact-method" style="margin-top: 2rem;">
+                    <h3 class="contact-method-title">Availability</h3>
+                    <p class="contact-method-detail">Open for Full-time Roles & Freelance Projects</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Django Form Card -->
+        <div class="form-card">
+            <!-- Action submits to the contact view, using POST method -->
+            <form action="{% url 'contact' %}" method="POST" novalidate>
+                <!-- CSRF Token is REQUIRED by Django for form security -->
+                {% csrf_token %}
+                
+                <!-- Form Fields Loop -->
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        <!-- Display field-specific validation errors (e.g. invalid email format) -->
+                        {% if field.errors %}
+                            <ul class="form-errors">
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}My Blog | Portfolio{% endblock %}
+
+{% block content %}
+<section>
+    <!-- Blog List Header -->
+    <div class="blog-header-actions">
+        <div>
+            <h1 class="section-title" style="text-align: left;">Blog Articles</h1>
+            <p class="text-secondary" style="color: var(--text-secondary);">Read my latest thoughts, tutorials, and updates.</p>
+        </div>
+        <!-- Create Action (C in CRUD) -->
+        <a href="{% url 'blog_create' %}" class="btn btn-primary">+ Create New Post</a>
+    </div>
+
+    <!-- Blog Grid -->
+    <div class="blog-grid" style="margin-top: 2rem;">
+        {% if posts %}
+            {% for post in posts %}
+                <article class="blog-card">
+                    <div class="blog-card-body">
+                        <!-- Date (Read) -->
+                        <div class="blog-meta">Published: {{ post.created_at|date:"M d, Y" }}</div>
+                        <!-- Title (Read) -->
+                        <h2 class="blog-card-title">
+                            <a href="{% url 'blog_detail' slug=post.slug %}">{{ post.title }}</a>
+                        </h2>
+                        <!-- Content snippet (Read) -->
+                        <p class="blog-excerpt">{{ post.content|truncatewords:25 }}</p>
+                    </div>
+                    <!-- Actions (Update and Delete in CRUD) -->
+                    <div class="blog-card-footer">
+                        <a href="{% url 'blog_detail' slug=post.slug %}" class="read-more-link">Read More &rarr;</a>
+                        <div class="blog-crud-actions">
+                            <a href="{% url 'blog_update' slug=post.slug %}" class="btn btn-secondary btn-sm" style="border-color: var(--primary); color: var(--primary);">Edit</a>
+                            <a href="{% url 'blog_delete' slug=post.slug %}" class="btn btn-danger btn-sm" style="padding: 0.4rem 0.8rem;">Delete</a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        {% else %}
+            <!-- Fallback if no posts are created -->
+            <div style="grid-column: 1 / -1; text-align: center; padding: 5rem 2rem; background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; color: var(--text-muted);">
+                <h3>No Blog Posts Found</h3>
+                <p style="margin-top: 1rem; margin-bottom: 2rem;">Use the button above to publish your first post!</p>
+                <a href="{% url 'blog_create' %}" class="btn btn-primary">Add Blog Post</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
