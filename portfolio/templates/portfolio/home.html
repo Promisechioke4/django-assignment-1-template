@@ -1,0 +1,90 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}Solomon Chinonso | Portfolio Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <p class="hero-tagline">👋 Welcome to my Portfolio</p>
+        <h1 class="hero-title">I'm <span>Solomon</span>,<br>Python Backend Developer.</h1>
+        <p class="hero-description">
+            I'm a Python Backend Developer passionate about building clean, scalable and secure web applications with Django. I love turning ideas into real, functional products.
+        </p>
+        <div class="hero-cta">
+            <a href="{% url 'contact' %}" class="btn btn-primary">Get In Touch</a>
+            <a href="{% url 'skills' %}" class="btn btn-secondary">View My Skills</a>
+        </div>
+    </div>
+    
+    <!-- Profile Photo -->
+    <div class="hero-visual">
+        <div class="profile-photo-wrapper">
+            <img src="{% static 'portfolio/image/profile.jpg' %}" alt="Sunday Solomon Chinonso" class="profile-photo">
+        </div>
+    </div>
+</section>
+
+<!-- Quick Skills Section -->
+<section style="margin-top: 5rem;">
+    <div class="section-header">
+        <h2 class="section-title">Core Skills Overview</h2>
+        <p class="section-subtitle">A brief overview of my top areas of expertise.</p>
+    </div>
+    
+    <div class="skills-list" style="margin-top: 2rem;">
+        {% if skills %}
+            {% for skill in skills %}
+                <div class="skill-card">
+                    <div class="skill-info">
+                        <span class="skill-name">{{ skill.name }}</span>
+                        <span class="skill-pct">{{ skill.proficiency }}%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar-fill" style="width: {{ skill.proficiency }}%"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="skill-card" style="grid-column: 1 / -1; text-align: center; color: var(--text-muted);">
+                <p>No skills uploaded yet. Add skills in the <a href="/admin" style="color: var(--primary); text-decoration: underline;">Admin Dashboard</a> to see them here!</p>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div style="text-align: center; margin-top: 3rem;">
+        <a href="{% url 'skills' %}" class="btn btn-secondary">See All Skills &rarr;</a>
+    </div>
+</section>
+
+<!-- Latest Blog Posts Section -->
+<section style="margin-top: 6rem; margin-bottom: 3rem;">
+    <div class="section-header">
+        <h2 class="section-title">Latest Articles</h2>
+        <p class="section-subtitle">My thoughts, tutorials, and insights on modern web technologies.</p>
+    </div>
+    
+    <div class="blog-grid" style="margin-top: 2rem;">
+        {% if latest_posts %}
+            {% for post in latest_posts %}
+                <article class="blog-card">
+                    <div class="blog-card-body">
+                        <div class="blog-meta">{{ post.created_at|date:"F d, Y" }}</div>
+                        <h3 class="blog-card-title"><a href="{% url 'blog_detail' slug=post.slug %}">{{ post.title }}</a></h3>
+                        <p class="blog-excerpt">{{ post.content|truncatewords:20 }}</p>
+                    </div>
+                    <div class="blog-card-footer">
+                        <a href="{% url 'blog_detail' slug=post.slug %}" class="read-more-link">Read Article &rarr;</a>
+                    </div>
+                </article>
+            {% endfor %}
+        {% else %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; color: var(--text-muted);">
+                <p style="margin-bottom: 1.5rem;">No blog posts available.</p>
+                <a href="{% url 'blog_create' %}" class="btn btn-primary">Create the First Post</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

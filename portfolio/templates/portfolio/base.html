@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Portfolio{% endblock %}</title>
+    <!-- Devicons for tech skill icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <!-- Link to custom styles.css -->
+    <link rel="stylesheet" href="{% static 'portfolio/css/styles.css' %}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Responsive Header & Navigation -->
+        <header>
+            <nav class="nav-container">
+                <a href="{% url 'home' %}" class="logo">SOLTECH</a>
+                <ul class="nav-links">
+                    <li><a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+                    <li><a href="{% url 'skills' %}" class="nav-link {% if request.resolver_match.url_name == 'skills' %}active{% endif %}">Skills</a></li>
+                    <li><a href="{% url 'blog_list' %}" class="nav-link {% if 'blog' in request.resolver_match.url_name %}active{% endif %}">Blog</a></li>
+                    <li><a href="{% url 'contact' %}" class="nav-btn">Hire Me</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Django Flash Messages (Alerts) -->
+        <main>
+            {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Dynamic Page Content -->
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <!-- Footer Section -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-socials">
+                    <a href="mailto:sundaysolomonchinonso@gmail.com" class="social-link">📧 Email</a>
+                    <a href="https://github.com/sundaysolomonchinonso-ship-it" target="_blank" class="social-link">GitHub</a>
+                    <a href="https://www.linkedin.com/in/chinonso-sunday-489b52410" target="_blank" class="social-link">LinkedIn</a>
+                </div>
+                <p>
+                    &copy; {% now "Y" %} Sunday Solomon Chinonso.
+                    All Rights Reserved.
+                </p>
+
+                <p>
+                    Designed &amp; Developed with ❤️ using Django, Python and Vanilla CSS.
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

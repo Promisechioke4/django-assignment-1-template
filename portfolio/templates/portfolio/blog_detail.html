@@ -1,0 +1,38 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}{{ post.title }} | Blog{% endblock %}
+
+{% block content %}
+<article class="blog-detail-container">
+    <!-- Back Button -->
+    <a href="{% url 'blog_list' %}" style="display: inline-flex; align-items: center; color: var(--primary); margin-bottom: 2rem; font-weight: 500;">
+        &larr; Back to Blog List
+    </a>
+
+    <!-- Header Details -->
+    <div class="blog-detail-header">
+        <div class="blog-detail-meta">
+            <span>Posted: {{ post.created_at|date:"F d, Y" }}</span>
+            {% if post.created_at != post.updated_at %}
+                <span style="color: var(--text-muted);">| Updated: {{ post.updated_at|date:"F d, Y" }}</span>
+            {% endif %}
+        </div>
+        <h1 class="blog-detail-title">{{ post.title }}</h1>
+    </div>
+
+    <!-- Content (Read - Detail in CRUD) -->
+    <div class="blog-detail-content">
+        <!-- linebreaks filter converts simple text line breaks to HTML paragraphs -->
+        {{ post.content|linebreaks }}
+    </div>
+
+    <!-- Action Buttons for Update and Delete -->
+    <div class="blog-actions-bar">
+        <a href="{% url 'blog_list' %}" class="btn btn-secondary">Back to Articles</a>
+        <div class="blog-crud-actions">
+            <a href="{% url 'blog_update' slug=post.slug %}" class="btn btn-primary" style="background: var(--primary); box-shadow: none;">Edit Article</a>
+            <a href="{% url 'blog_delete' slug=post.slug %}" class="btn btn-danger">Delete Article</a>
+        </div>
+    </div>
+</article>
+{% endblock %}

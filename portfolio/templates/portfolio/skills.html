@@ -1,0 +1,100 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}Skills | Portfolio{% endblock %}
+
+{% block content %}
+
+<section class="skills-page">
+
+    <div class="container">
+
+        <!-- Heading -->
+        <div class="section-title fade-in text-center mb-5">
+
+            <span class="hero-badge">My Skills</span>
+
+            <h1 class="section-title mt-4">Technologies I Work With</h1>
+
+            <p class="section-subtitle">
+                My backend development journey with Python, Django and modern web technologies.
+            </p>
+
+        </div>
+
+        <div class="skills-devicon-grid">
+
+            {% for skill in skills %}
+
+            <div class="skill-devicon-card">
+
+                <!-- Skill Icon using Devicons -->
+                <div class="skill-icon-wrapper">
+                    {% if skill.name == "Python" %}
+                        <i class="devicon-python-plain colored skill-icon"></i>
+
+                    {% elif skill.name == "Django" %}
+                        <i class="devicon-django-plain colored skill-icon"></i>
+
+                    {% elif skill.name == "HTML" %}
+                        <i class="devicon-html5-plain colored skill-icon"></i>
+
+                    {% elif skill.name == "CSS" %}
+                        <i class="devicon-css3-plain colored skill-icon"></i>
+
+                    {% elif skill.name == "Bootstrap" %}
+                        <i class="devicon-bootstrap-plain colored skill-icon"></i>
+
+                    {% elif skill.name == "JavaScript" %}
+                        <i class="devicon-javascript-plain colored skill-icon"></i>
+
+                    {% elif skill.name == "Git" %}
+                        <i class="devicon-git-plain colored skill-icon"></i>
+
+                    {% elif skill.name == "GitHub" %}
+                        <i class="devicon-github-original colored skill-icon"></i>
+
+                    {% else %}
+                        <i class="skill-icon-fallback">{ }</i>
+                    {% endif %}
+                </div>
+
+                <!-- Skill Name -->
+                <h4 class="skill-devicon-name">{{ skill.name }}</h4>
+
+                <!-- Skill Level Label -->
+                <p class="skill-level-label">
+                    {% if skill.percentage >= 90 %}
+                        Expert
+                    {% elif skill.percentage >= 75 %}
+                        Advanced
+                    {% elif skill.percentage >= 50 %}
+                        Intermediate
+                    {% else %}
+                        Beginner
+                    {% endif %}
+                </p>
+
+                <!-- Progress Bar -->
+                <div class="skill-progress-wrapper">
+                    <div class="skill-progress-bar-bg">
+                        <div class="skill-progress-bar-fill" style="width: {{ skill.percentage }}%;"></div>
+                    </div>
+                    <p class="skill-pct-label">{{ skill.percentage }}% Proficiency</p>
+                </div>
+
+            </div>
+
+            {% empty %}
+            <div class="skills-empty">
+                <p>No skills added yet. Add skills via the <a href="/admin">Admin Dashboard</a>.</p>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

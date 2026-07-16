@@ -127,4 +127,8 @@ Ensure your `.gitignore` file excludes these files.
 
 Good luck, and happy coding!
 
+## Author
+
+Sunday Chinonso Solomon
+
 **Enterprise Python Backend Development**

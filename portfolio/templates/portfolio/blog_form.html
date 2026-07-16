@@ -1,0 +1,44 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}{{ title }} | Blog{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <!-- Back Navigation -->
+    <a href="{% if post %}{% url 'blog_detail' slug=post.slug %}{% else %}{% url 'blog_list' %}{% endif %}" style="display: inline-flex; align-items: center; color: var(--primary); margin-bottom: 2rem; font-weight: 500;">
+        &larr; Cancel and Go Back
+    </a>
+
+    <!-- Page Title Header -->
+    <div class="section-header" style="text-align: left; margin-bottom: 2.5rem;">
+        <h1 class="section-title" style="text-align: left;">{{ title }}</h1>
+        <p style="color: var(--text-secondary);">Compose and publish content to your dynamic blog feed.</p>
+    </div>
+
+    <!-- Django Form Card -->
+    <div class="form-card">
+        <!-- Leave the action empty to submit to the current view URL -->
+        <form method="POST" novalidate>
+            <!-- CSRF Token security -->
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <ul class="form-errors">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <!-- Dynamic Submit Button text -->
+            <button type="submit" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">{{ button_text }}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
